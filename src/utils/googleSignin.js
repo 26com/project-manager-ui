@@ -19,8 +19,12 @@ export async function googleSignIn(){
     const currentUser = GoogleUser.getBasicProfile();
 
     const currentUserEmail = currentUser.getEmail();
+    const currentUserName = currentUser.getName();
 
-    return currentUserEmail;
+    return {
+        email: currentUserEmail,
+        name: currentUserName
+    };
 
 };
 

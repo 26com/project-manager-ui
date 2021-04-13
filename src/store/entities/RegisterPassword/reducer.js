@@ -4,6 +4,7 @@ import * as types from './actions';
 
 const initialState = {
     loading: false,
+    userEmail: null,
     message: null
 };
 
@@ -11,12 +12,13 @@ export default (state=initialState, action) => {
     const { type, data } = action;
     return produce(state, (draft) => {
         switch(type){
-            case types.LOGIN_START: 
+            case types.REGISTER_PASSWORD_START: 
                 draft.loading = true;
                 break;
-            case types.LOGIN_SUCCESS:
+            case types.REGISTER_PASSWORD_SUCCESS:
                 draft.loading = false;
-                draft.message = data;
+                draft.userEmail = data.email;
+                draft.message = data.message;
                 break;
             default: 
                 return draft;

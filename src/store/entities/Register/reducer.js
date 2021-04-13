@@ -11,10 +11,10 @@ export default (state=initialState, action) => {
     const { type, data } = action;
     return produce(state, (draft) => {
         switch(type){
-            case types.LOGIN_START: 
+            case types.REGISTER_START: 
                 draft.loading = true;
                 break;
-            case types.LOGIN_SUCCESS:
+            case types.REGISTER_SUCCESS:
                 draft.loading = false;
                 draft.message = data;
                 break;

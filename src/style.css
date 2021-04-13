@@ -1,17 +1,20 @@
-.register-form-item {
+.auth-form-item {
+  background-color: white;
   outline: none;
   margin-top: 10px;
   padding: 6px;
   border: none;
   border-bottom: 1px solid rgba(122, 122, 122, 0.5);
 }
-.register-wrap {
+.auth-wrap {
   height: 100vh;
   background-color: white;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
-.register-form-container {
+.auth-form-container {
   width: 200px;
   height: 300px;
   padding: 50px;
@@ -23,32 +26,49 @@
   align-items: center;
   justify-content: space-around;
 }
-.register-form-email-input {
+.auth-title {
+  color: #d3c9c9;
+  font-size: 15px;
+  font-weight: bold;
+}
+.auth-form-email-input {
+  background-color: white;
   outline: none;
   margin-top: 10px;
   padding: 6px;
   border: none;
   border-bottom: 1px solid rgba(122, 122, 122, 0.5);
 }
-.register-form-name-input {
+.auth-form-name-input {
+  background-color: white;
   outline: none;
   margin-top: 10px;
   padding: 6px;
   border: none;
   border-bottom: 1px solid rgba(122, 122, 122, 0.5);
 }
-.register-form-password-input {
+.auth-form-password-input {
+  background-color: white;
   outline: none;
   margin-top: 10px;
   padding: 6px;
   border: none;
   border-bottom: 1px solid rgba(122, 122, 122, 0.5);
 }
-.register-form-button {
+.auth-form-button {
+  outline: none;
+  margin-top: 10px;
+  padding: 6px;
+  border-bottom: 1px solid rgba(122, 122, 122, 0.5);
   height: 36px;
   width: 120px;
   margin-top: 20px;
   border: none;
   box-shadow: 0 0.1em 3px rgba(122, 122, 122, 0.5);
   background-color: white;
+}
+.auth-message {
+  font-size: 12px;
+  color: red;
+  font-weight: bold;
 }
