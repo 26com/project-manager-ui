@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { url } from "../constans/credential";
+import { url } from "../constants";
 //import changeLogining from "./changeLogining";
 
 const clientAPI = axios.create({

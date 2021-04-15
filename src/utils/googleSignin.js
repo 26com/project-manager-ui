@@ -1,5 +1,4 @@
 export function gapiInit(){
-
     window.gapi.load('auth2', function() {
         console.log('Gapi was load');
         window.gapi.auth2.init({

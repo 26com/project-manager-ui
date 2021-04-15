@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
+import { useParams } from 'react-router-dom';
 
-import { register, registerGapi } from '../../store/entities/Register/thunk';
+import { checkToken, register, registerGapi } from '../../store/entities/Register/thunk';
 import { gapiInit, googleSignIn, googleSignOut } from '../../utils/googleSignin';
 import Header from '../../shared/Header';
 
@@ -11,14 +12,17 @@ import './style.css';
 export default function Register(){
 
     const dispatch = useDispatch();
+    const { token } = useParams();
 
     const { loading, message } = useSelector(state => state.register);
 
-    const [inputEmailValue, setInputEmailValue] = useState();
+    const [inputEmailValue, setInputEmailValue] = useState('');
+    const [inputNameValue, setInputNameValue] = useState('');
+    const [inputPasswordValue, setInputPasswordValue] = useState('');
+    const [inputConfirmPasswordValue, setInputConfirmPasswordValue] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState(false);
 
-    console.log('rerender');
-
-    async function handleGoogleSignInButtonClick(){
+    async function handleGSignInClick(){
         const { email, name } = await googleSignIn();
         console.log(email, name);
 
@@ -28,15 +32,51 @@ export default function Register(){
         }));
     };
 
+    async function handleSignInClick(){
+        dispatch(register({
+            email: inputEmailValue,
+            name: inputNameValue,
+            password: inputPasswordValue
+        }));
+    };
+
     useEffect(() => {
+
+        if(token){
+            dispatch(checkToken(token));
+            return;
+        };
         gapiInit();
+
     }, []);
+
+    useEffect(() => {
+
+        if(!inputConfirmPasswordValue){
+            setConfirmPassword(false);
+            return;
+        };
+
+        if(inputConfirmPasswordValue !== inputPasswordValue){
+            setConfirmPassword(false);
+            return;
+        };
+
+        if(inputPasswordValue === inputConfirmPasswordValue){
+            setConfirmPassword(true);
+            return;
+        };
+
+    }, [inputConfirmPasswordValue, inputPasswordValue]);
+
+    const shouldRedirect = localStorage.access_token && !loading;
+    const shouldDisabled = !inputEmailValue || !inputNameValue || !confirmPassword || loading;
 
     return(
         
         <div className="auth-wrap">
 
-            {localStorage.access_token && !loading &&
+            {shouldRedirect &&
                 <Redirect to="/" />    
             }
 
@@ -57,16 +97,34 @@ export default function Register(){
                     onChange={(e) => setInputEmailValue(e.target.value)}
                 />
 
+                <input type="text" 
+                    className="auth-form-name-input"
+                    placeholder="Name..." 
+                    onChange={(e) => setInputNameValue(e.target.value)}
+                />
+
+                <input type="password" 
+                    className="auth-form-password-input"
+                    placeholder="Password..." 
+                    onChange={(e) => setInputPasswordValue(e.target.value)}
+                />
+
+                <input type="password" 
+                    className="auth-form-password-input"
+                    placeholder="Confirm password..." 
+                    onChange={(e) => setInputConfirmPasswordValue(e.target.value)}
+                />
+
                 <button className="auth-form-button"
-                    disabled={!inputEmailValue || loading}
-                    onClick={() => dispatch(register({
-                        email: inputEmailValue
-                    }))}
+                    disabled={shouldDisabled}
+                    onClick={handleSignInClick}
                 >
                 Отправить
                 </button>
 
-                <div className="g-signin2 auth-form-gbutton" onClick={handleGoogleSignInButtonClick}></div>
+                {!token &&
+                <div className="g-signin2 auth-form-gbutton" onClick={handleGSignInClick}></div>
+                }
 
             </div>
         </div>

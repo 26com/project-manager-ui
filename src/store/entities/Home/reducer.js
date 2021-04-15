@@ -3,9 +3,7 @@ import produce from 'immer';
 import * as types from './actions';
 
 const initialState = {
-    loading: false,
-    userEmail: null,
-    message: null
+    message: ''
 };
 
 export default (state=initialState, action) => {

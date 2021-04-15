@@ -16,8 +16,8 @@ export default function Login(){
 
     const { loading, message } = useSelector(state => state.login);
 
-    const [inputEmailValue, setInputEmailValue] = useState();
-    const [inputPasswordValue, setInputPasswordValue] = useState();
+    const [inputEmailValue, setInputEmailValue] = useState('');
+    const [inputPasswordValue, setInputPasswordValue] = useState('');
     
     async function handleGoogleSignInButtonClick(){
 
@@ -30,7 +30,7 @@ export default function Login(){
         }));
     };
 
-    async function handleSignInButtonClick(){
+    async function handleSignInClick(){
 
         dispatch(login({
             email: inputEmailValue,
@@ -42,24 +42,15 @@ export default function Login(){
         gapiInit();
     }, []);
 
-
+    const shouldRedirect = localStorage.access_token && !loading;
     return(
-
-        
         <div className="auth-wrap">
-
             <Header />
-            
-            {localStorage.access_token && !loading &&
-                <Redirect to="/" />    
-            }
-        
+            {shouldRedirect &&                <Redirect to="/" />               }
             <div className="auth-form-container">
-
                 <span className='auth-title'>
                     ВОЙТИ В АККАУНТ
                 </span>
-
                 <span className="auth-message">
                     {message}
                 </span>
@@ -78,7 +69,7 @@ export default function Login(){
 
                 <button className="auth-form-button"
                     disabled={loading || !inputEmailValue || !inputPasswordValue}
-                    onClick={handleSignInButtonClick}
+                    onClick={handleSignInClick}
                 >
                 Login
                 </button>
