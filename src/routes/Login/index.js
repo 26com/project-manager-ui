@@ -1,84 +1,88 @@
-import { useEffect, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router';
 
 import { login, registerGapi } from '../../store/entities/Login/thunk';
-import { gapiInit, googleSignIn, googleSignOut } from '../../utils/googleSignin';
+import { gapiInit, googleSignIn } from '../../utils/googleSignin';
 import Header from '../../shared/Header';
 
-import "./style.css";
+import './style.css';
 
-export default function Login(){
+export default function Login() {
+  console.log('render');
 
-    console.log('render');
+  const dispatch = useDispatch();
 
-    const dispatch = useDispatch();
+  const { loading, message } = useSelector((state) => state.login);
 
-    const { loading, message } = useSelector(state => state.login);
+  const [inputEmailValue, setInputEmailValue] = useState('');
+  const [inputPasswordValue, setInputPasswordValue] = useState('');
 
-    const [inputEmailValue, setInputEmailValue] = useState('');
-    const [inputPasswordValue, setInputPasswordValue] = useState('');
-    
-    async function handleGoogleSignInButtonClick(){
+  async function handleGSignInClick() {
+    console.log('aaaaaaaaaaaaaaaaaaaaaaaa');
+    const { email, name } = await googleSignIn();
+    console.log(email, name);
 
-        const { email, name } = await googleSignIn();
-        console.log(email, name);
+    dispatch(registerGapi({
+      email,
+      name,
+    }));
+  }
 
-        dispatch(registerGapi({
-            email,
-            name
-        }));
-    };
+  async function handleSignInClick() {
+    dispatch(login({
+      email: inputEmailValue,
+      password: inputPasswordValue,
+    }));
+  }
 
-    async function handleSignInClick(){
+  useEffect(() => {
+    gapiInit();
+  }, []);
 
-        dispatch(login({
-            email: inputEmailValue,
-            password: inputPasswordValue
-        }));
-    };
+  const shouldRedirect = localStorage.access_token && !loading;
+  return (
+    <div className="auth-wrap">
+      <Header />
+      {shouldRedirect && <Redirect to="/" /> }
+      <div className="auth-form-container">
+        <span className="auth-title">
+          ВОЙТИ В АККАУНТ
+        </span>
+        <span className="auth-message">
+          {message}
+        </span>
 
-    useEffect(() => {
-        gapiInit();
-    }, []);
+        <input
+          type="text"
+          className="auth-form-email-input"
+          placeholder="Email..."
+          onChange={(e) => setInputEmailValue(e.target.value)}
+        />
 
-    const shouldRedirect = localStorage.access_token && !loading;
-    return(
-        <div className="auth-wrap">
-            <Header />
-            {shouldRedirect &&                <Redirect to="/" />               }
-            <div className="auth-form-container">
-                <span className='auth-title'>
-                    ВОЙТИ В АККАУНТ
-                </span>
-                <span className="auth-message">
-                    {message}
-                </span>
+        <input
+          type="password"
+          className="auth-form-password-input"
+          placeholder="Password..."
+          onChange={(e) => setInputPasswordValue(e.target.value)}
+        />
 
-                <input type="text" 
-                    className="auth-form-email-input"
-                    placeholder="Email..." 
-                    onChange={(e) => setInputEmailValue(e.target.value)}
-                />
+        <button
+          className="auth-form-button"
+          disabled={loading || !inputEmailValue || !inputPasswordValue}
+          onClick={handleSignInClick}
+        >
+          Login
+        </button>
 
-                <input type="password" 
-                    className="auth-form-password-input"
-                    placeholder="Password..." 
-                    onChange={(e) => setInputPasswordValue(e.target.value)}
-                />
+        <button
+          className="auth-form-button"
+          onClick={handleGSignInClick}
+        >
+          Google
+        </button>
 
-                <button className="auth-form-button"
-                    disabled={loading || !inputEmailValue || !inputPasswordValue}
-                    onClick={handleSignInClick}
-                >
-                Login
-                </button>
-
-                <div className="g-signin2" onClick={handleGoogleSignInButtonClick}></div>
-
-            </div>
-        </div>
-    )
+      </div>
+    </div>
+  );
 }
-
-

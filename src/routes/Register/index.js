@@ -1,134 +1,136 @@
-import { useEffect, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
 import { useParams } from 'react-router-dom';
 
 import { checkToken, register, registerGapi } from '../../store/entities/Register/thunk';
-import { gapiInit, googleSignIn, googleSignOut } from '../../utils/googleSignin';
+import { gapiInit, googleSignIn } from '../../utils/googleSignin';
 import Header from '../../shared/Header';
 
 import './style.css';
 
-export default function Register(){
+export default function Register() {
+  const dispatch = useDispatch();
+  const { token } = useParams();
 
-    const dispatch = useDispatch();
-    const { token } = useParams();
+  const { loading, message } = useSelector((state) => state.register);
 
-    const { loading, message } = useSelector(state => state.register);
+  const [inputEmailValue, setInputEmailValue] = useState('');
+  const [inputNameValue, setInputNameValue] = useState('');
+  const [inputPasswordValue, setInputPasswordValue] = useState('');
+  const [inputConfirmPasswordValue, setInputConfirmPasswordValue] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState(false);
 
-    const [inputEmailValue, setInputEmailValue] = useState('');
-    const [inputNameValue, setInputNameValue] = useState('');
-    const [inputPasswordValue, setInputPasswordValue] = useState('');
-    const [inputConfirmPasswordValue, setInputConfirmPasswordValue] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState(false);
+  async function handleGSignInClick() {
+    const { email, name } = await googleSignIn();
+    console.log(email, name);
 
-    async function handleGSignInClick(){
-        const { email, name } = await googleSignIn();
-        console.log(email, name);
+    dispatch(registerGapi({
+      email,
+      name,
+    }));
+  }
 
-        dispatch(registerGapi({
-            email,
-            name
-        }));
-    };
+  async function handleSignInClick() {
+    dispatch(register({
+      email: inputEmailValue,
+      name: inputNameValue,
+      password: inputPasswordValue,
+    }));
+  }
 
-    async function handleSignInClick(){
-        dispatch(register({
-            email: inputEmailValue,
-            name: inputNameValue,
-            password: inputPasswordValue
-        }));
-    };
+  useEffect(() => {
+    if (token) {
+      dispatch(checkToken(token));
+      return;
+    }
+    gapiInit();
+  }, []);
 
-    useEffect(() => {
+  useEffect(() => {
+    if (!inputConfirmPasswordValue) {
+      setConfirmPassword(false);
+      return;
+    }
 
-        if(token){
-            dispatch(checkToken(token));
-            return;
-        };
-        gapiInit();
+    if (inputConfirmPasswordValue !== inputPasswordValue) {
+      setConfirmPassword(false);
+      return;
+    }
 
-    }, []);
+    if (inputPasswordValue === inputConfirmPasswordValue) {
+      setConfirmPassword(true);
+    }
+  }, [inputConfirmPasswordValue, inputPasswordValue]);
 
-    useEffect(() => {
+  const shouldRedirect = localStorage.access_token && !loading;
+  const shouldDisabled = !inputEmailValue || !inputNameValue || !confirmPassword || loading;
 
-        if(!inputConfirmPasswordValue){
-            setConfirmPassword(false);
-            return;
-        };
+  return (
 
-        if(inputConfirmPasswordValue !== inputPasswordValue){
-            setConfirmPassword(false);
-            return;
-        };
+    <div className="auth-wrap">
 
-        if(inputPasswordValue === inputConfirmPasswordValue){
-            setConfirmPassword(true);
-            return;
-        };
+      {shouldRedirect
+                && <Redirect to="/" />}
 
-    }, [inputConfirmPasswordValue, inputPasswordValue]);
+      <Header />
 
-    const shouldRedirect = localStorage.access_token && !loading;
-    const shouldDisabled = !inputEmailValue || !inputNameValue || !confirmPassword || loading;
+      <div className="auth-form-container">
 
-    return(
-        
-        <div className="auth-wrap">
+        <span className="auth-title">
+          РЕГИСТРАЦИЯ
+        </span>
+        <span className="auth-message">
+          {message}
+        </span>
 
-            {shouldRedirect &&
-                <Redirect to="/" />    
-            }
+        <input
+          type="text"
+          className="auth-form-email-input"
+          placeholder="Email..."
+          onChange={(e) => setInputEmailValue(e.target.value)}
+        />
 
-            <Header />
+        <input
+          type="text"
+          className="auth-form-name-input"
+          placeholder="Name..."
+          onChange={(e) => setInputNameValue(e.target.value)}
+        />
 
-            <div className="auth-form-container">
+        <input
+          type="password"
+          className="auth-form-password-input"
+          placeholder="Password..."
+          onChange={(e) => setInputPasswordValue(e.target.value)}
+        />
 
-                <span className='auth-title'>
-                    РЕГИСТРАЦИЯ
-                </span>
-                <span className="auth-message">
-                    {message}
-                </span>
+        <input
+          type="password"
+          className="auth-form-password-input"
+          placeholder="Confirm password..."
+          onChange={(e) => setInputConfirmPasswordValue(e.target.value)}
+        />
 
-                <input type="text" 
-                    className="auth-form-email-input"
-                    placeholder="Email..." 
-                    onChange={(e) => setInputEmailValue(e.target.value)}
-                />
+        <button
+          className="auth-form-button"
+          disabled={shouldDisabled}
+          onClick={handleSignInClick}
+        >
+          Отправить
+        </button>
 
-                <input type="text" 
-                    className="auth-form-name-input"
-                    placeholder="Name..." 
-                    onChange={(e) => setInputNameValue(e.target.value)}
-                />
-
-                <input type="password" 
-                    className="auth-form-password-input"
-                    placeholder="Password..." 
-                    onChange={(e) => setInputPasswordValue(e.target.value)}
-                />
-
-                <input type="password" 
-                    className="auth-form-password-input"
-                    placeholder="Confirm password..." 
-                    onChange={(e) => setInputConfirmPasswordValue(e.target.value)}
-                />
-
-                <button className="auth-form-button"
-                    disabled={shouldDisabled}
-                    onClick={handleSignInClick}
+        {!token
+                && (
+                <button
+                  className="auth-form-button"
+                  onClick={handleGSignInClick}
                 >
-                Отправить
+                  Google
                 </button>
+                )}
 
-                {!token &&
-                <div className="g-signin2 auth-form-gbutton" onClick={handleGSignInClick}></div>
-                }
-
-            </div>
-        </div>
-    )
+      </div>
+    </div>
+  );
 }
-
-

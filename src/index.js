@@ -14,12 +14,12 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <Switch>
-        <Route path="/auth/login" children={<Login />} />
-        <Route path="/auth/register/:token" children={<Register />} />
-        <Route path="/auth/register" children={<Register />} />
-        <Route path="/" children={<Home />} />
+        <Route path="/auth/login"><Login /></Route>
+        <Route path="/auth/register/:token"><Register /></Route>
+        <Route path="/auth/register"><Register /></Route>
+        <Route path="/"><Home /></Route>
       </Switch>
     </Router>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );

@@ -1,39 +1,35 @@
-export function gapiInit(){
-    window.gapi.load('auth2', function() {
-        console.log('Gapi was load');
-        window.gapi.auth2.init({
-            client_id: "500266575647-p6ou80usfojor9fiqc4nc7veedt8gudq.apps.googleusercontent.com"
-        });
+export function gapiInit() {
+  window.gapi.load('auth2', () => {
+    console.log('Gapi was load');
+    window.gapi.auth2.init({
+      client_id: '500266575647-p6ou80usfojor9fiqc4nc7veedt8gudq.apps.googleusercontent.com',
     });
-};
+  });
+}
 
-export async function googleSignIn(){
+export async function googleSignIn() {
+  const GoogleAuth = window.gapi.auth2.getAuthInstance();
 
-    const GoogleAuth = window.gapi.auth2.getAuthInstance();
+  await GoogleAuth.signIn({ scope: 'profile email' });
 
-    await GoogleAuth.signIn({scope: 'profile email'});
+  const GoogleUser = await GoogleAuth.currentUser.get();
 
-    const GoogleUser = await GoogleAuth.currentUser.get();
+  const currentUser = GoogleUser.getBasicProfile();
 
-    const currentUser = GoogleUser.getBasicProfile();
+  const currentUserEmail = currentUser.getEmail();
+  const currentUserName = currentUser.getName();
 
-    const currentUserEmail = currentUser.getEmail();
-    const currentUserName = currentUser.getName();
+  return {
+    email: currentUserEmail,
+    name: currentUserName,
+  };
+}
 
-    return {
-        email: currentUserEmail,
-        name: currentUserName
-    };
+export function googleSignOut() {
+  const GoogleAuth = window.gapi.auth2.getAuthInstance();
 
-};
-
-export function googleSignOut(){
-
-    const GoogleAuth =  window.gapi.auth2.getAuthInstance();
-
-    GoogleAuth.signOut()
+  GoogleAuth.signOut()
     .then(() => {
-        console.log('Google sign out')
+      console.log('Google sign out');
     });
-
-};
+}
