@@ -1,9 +1,10 @@
 import clientAPI from '../../../utils/clientAPI';
 
-import actions from './actions';
+// import actions from './actions';
+import { loginStart, loginSuccess } from './slice';
 
 export const login = ({ email, password }) => (dispatch) => {
-  dispatch(actions.loginStart());
+  dispatch(loginStart());
 
   clientAPI.post('unprotected/login', {
     email,
@@ -11,17 +12,17 @@ export const login = ({ email, password }) => (dispatch) => {
   })
     .then((res) => {
       localStorage.access_token = res.data.token;
-      dispatch(actions.loginSuccess());
+      dispatch(loginSuccess());
     })
     .catch(() => {
     //   console.log('INVALID LOGIN OR PASSWORD');
-      dispatch(actions.loginSuccess('INVALID LOGIN OR PASSWORD'));
-      setTimeout(() => dispatch(actions.loginSuccess(null)), 3000);
+      dispatch(loginSuccess('INVALID LOGIN OR PASSWORD'));
+      setTimeout(() => dispatch(loginSuccess(null)), 3000);
     });
 };
 
 export const registerGapi = ({ email, name }) => (dispatch) => {
-  dispatch(actions.loginStart());
+  dispatch(loginStart());
 
   clientAPI.post('unprotected/registerGapi', {
     email,
@@ -31,6 +32,6 @@ export const registerGapi = ({ email, name }) => (dispatch) => {
       console.log(res);
       localStorage.access_token = res.data.token;
       console.log('token was update');
-      dispatch(actions.loginSuccess());
+      dispatch(loginSuccess());
     });
 };
