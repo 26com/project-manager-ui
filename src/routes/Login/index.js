@@ -79,7 +79,8 @@ export default function Login() {
           className="auth-form-button"
           onClick={handleGSignInClick}
         >
-          Google
+          <i className="fab fa-google" />
+          oogle
         </button>
 
       </div>

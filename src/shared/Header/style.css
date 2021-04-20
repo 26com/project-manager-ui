@@ -1,7 +1,97 @@
 .header-container {
-  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  width: 100%;
+  background-color: #338b6b;
+}
+.header-item {
+  display: flex;
+  align-items: stretch;
+  padding: 4px;
+  min-width: 30%;
+}
+.header-item input::placeholder {
+  color: #ffffff;
+}
+.header-item button {
+  width: 35px;
+}
+.header-item button,
+.header-item input {
+  margin-right: 4px;
+  background-color: #449b6b;
+  border: none;
+  border-radius: 5px;
+  color: #ffffff;
+  outline: none;
 }
 .header-title {
-  font-size: 40px;
-  font-weight: bold;
+  justify-content: center;
+  font-size: 30px;
+  font-family: Courier New, monospace;
+  color: #ffffff;
+  display: flex;
+  align-items: stretch;
+  padding: 4px;
+  min-width: 30%;
+}
+.header-title input::placeholder {
+  color: #ffffff;
+}
+.header-title button {
+  width: 35px;
+}
+.header-title button,
+.header-title input {
+  margin-right: 4px;
+  background-color: #449b6b;
+  border: none;
+  border-radius: 5px;
+  color: #ffffff;
+  outline: none;
+}
+.header-menu-left {
+  justify-content: flex-start;
+  display: flex;
+  align-items: stretch;
+  padding: 4px;
+  min-width: 30%;
+}
+.header-menu-left input::placeholder {
+  color: #ffffff;
+}
+.header-menu-left button {
+  width: 35px;
+}
+.header-menu-left button,
+.header-menu-left input {
+  margin-right: 4px;
+  background-color: #449b6b;
+  border: none;
+  border-radius: 5px;
+  color: #ffffff;
+  outline: none;
+}
+.header-menu-right {
+  justify-content: flex-end;
+  display: flex;
+  align-items: stretch;
+  padding: 4px;
+  min-width: 30%;
+}
+.header-menu-right input::placeholder {
+  color: #ffffff;
+}
+.header-menu-right button {
+  width: 35px;
+}
+.header-menu-right button,
+.header-menu-right input {
+  margin-right: 4px;
+  background-color: #449b6b;
+  border: none;
+  border-radius: 5px;
+  color: #ffffff;
+  outline: none;
 }
