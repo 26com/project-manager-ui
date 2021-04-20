@@ -1,0 +1,24 @@
+@import "../../../_variabels.less";
+
+.sidebar-item{
+    margin-top: 5px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    color: black;
+    text-decoration: none;
+}
+
+.left-sidebar-container{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    min-width: 10%;
+    .active{
+        background-color: @main-color-lighter;
+        color: #fff;
+    }
+    a{
+        .sidebar-item;
+    }
+    
+}
