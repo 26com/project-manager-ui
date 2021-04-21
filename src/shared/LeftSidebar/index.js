@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './style.css';
 
-function LeftSidebar({ home, boarders, templates }) {
+function LeftSidebar({ home, projects, templates }) {
   return (
     <nav className="left-sidebar-container">
       <a href="/" className={home}>
@@ -11,10 +11,10 @@ function LeftSidebar({ home, boarders, templates }) {
         {'  '}
         Главная
       </a>
-      <a href="/" className={boarders}>
+      <a href="/user/projects" className={projects}>
         <i className="fas fa-chalkboard-teacher" />
         {'  '}
-        Доски
+        Проекты
       </a>
       <a href="/" className={templates}>
         <i className="fab fa-buromobelexperte" />
@@ -28,13 +28,13 @@ function LeftSidebar({ home, boarders, templates }) {
 LeftSidebar.propTypes = {
   home: PropTypes.string,
   templates: PropTypes.string,
-  boarders: PropTypes.string,
+  projects: PropTypes.string,
 };
 
 LeftSidebar.defaultProps = {
   home: 'left-sidebar-item',
   templates: 'left-sidebar-item',
-  boarders: 'left-sidebar-item',
+  projects: 'left-sidebar-item',
 };
 
 export default LeftSidebar;

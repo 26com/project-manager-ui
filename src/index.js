@@ -8,6 +8,7 @@ import store from './store';
 import Login from './routes/Login';
 import Register from './routes/Register';
 import Home from './routes/Home';
+import Projects from './routes/Projects';
 import './style.css';
 
 ReactDOM.render(
@@ -17,6 +18,7 @@ ReactDOM.render(
         <Route path="/auth/login"><Login /></Route>
         <Route path="/auth/register/:token"><Register /></Route>
         <Route path="/auth/register"><Register /></Route>
+        <Route path="/user/projects"><Projects /></Route>
         <Route path="/"><Home /></Route>
       </Switch>
     </Router>

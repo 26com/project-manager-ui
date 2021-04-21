@@ -8,7 +8,7 @@ import Header from '../../shared/Header';
 import './style.css';
 import LeftSidebar from '../../shared/LeftSidebar';
 
-export default function RegisterPassword() {
+export default function Home() {
   const dispatch = useDispatch();
 
   const { token } = useParams();
