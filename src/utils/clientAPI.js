@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import cons from '../constants';
+import changeLogining from './changeLogining';
 
 const clientAPI = axios.create({
   baseURL: cons.url,
@@ -16,9 +17,12 @@ clientAPI.interceptors.request.use((request) => {
 
 clientAPI.interceptors.response.use((response) => response, (error) => {
   if (error && error.response) {
-    // console.log(error);
+    if (error.response.status === 401) {
+      changeLogining(false);
+    }
     return Promise.reject(error);
   }
+
   return Promise.resolve();
 });
 

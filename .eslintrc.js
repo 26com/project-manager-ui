@@ -23,5 +23,6 @@ module.exports = {
     'react/button-has-type': 0,
     'no-param-reassign': 0,
     'consistent-return': 0,
+    'no-unused-vars': 0,
   },
 };

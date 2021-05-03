@@ -11,7 +11,11 @@
 import login from './entities/Login/slice';
 import register from './entities/Register/slice';
 import home from './entities/Home/slice';
+import workspace from './entities/Workspace/slice';
+import logining from './entities/Logining/slice';
 
-const rootReducer = { login, register, home };
+const rootReducer = {
+  login, register, home, workspace, logining,
+};
 
 export default rootReducer;

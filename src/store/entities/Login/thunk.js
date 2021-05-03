@@ -15,7 +15,6 @@ export const login = ({ email, password }) => (dispatch) => {
       dispatch(loginSuccess());
     })
     .catch(() => {
-    //   console.log('INVALID LOGIN OR PASSWORD');
       dispatch(loginSuccess('INVALID LOGIN OR PASSWORD'));
       setTimeout(() => dispatch(loginSuccess(null)), 3000);
     });
@@ -29,7 +28,6 @@ export const registerGapi = ({ email, name }) => (dispatch) => {
     name,
   })
     .then((res) => {
-      console.log(res);
       localStorage.access_token = res.data.token;
       console.log('token was update');
       dispatch(loginSuccess());

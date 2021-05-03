@@ -1,15 +1,16 @@
 import { React, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+// import { Redirect } from 'react-router';
 
 import checkToken from '../../store/entities/Home/thunk';
 import Header from '../../shared/Header';
-
-import './style.css';
 import LeftSidebar from '../../shared/LeftSidebar';
+import './style.css';
 
 export default function Home() {
   const dispatch = useDispatch();
+  // const { logining } = useSelector((state) => state.logining);
 
   const { token } = useParams();
 
@@ -22,6 +23,8 @@ export default function Home() {
   return (
 
     <div className="home-wrap">
+
+      {/* {!logining && <Redirect to="/auth/login" />} */}
 
       <Header />
 

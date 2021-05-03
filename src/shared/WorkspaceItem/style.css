@@ -16,3 +16,29 @@
 .workspace-background-5 {
   background: linear-gradient(to top left, #e6b8b0, #c0dbff);
 }
+.workspace-item-container {
+  width: 80%;
+  margin: 15px;
+  padding: 0 15px 15px 15px;
+}
+.workspace-item-container .menu-button {
+  cursor: pointer;
+}
+.workspace-item-lable {
+  display: inline-block;
+  margin-right: 15px;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+}
+.workspace-item-menu {
+  font-size: 15px;
+  color: #706f6f;
+}
+.workspace-item-menu span {
+  cursor: pointer;
+}
