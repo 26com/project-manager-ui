@@ -4,12 +4,24 @@
 
 import { React, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+
+import { deleteOne, getByUser } from '../../store/entities/Workspace/thunk';
 
 import './style.css';
 
-function WorkspaceItem({ name, description, background }) {
+function WorkspaceItem({
+  name, description, background, id,
+}) {
+  const dispatch = useDispatch();
   const className = `workspace-item-lable workspace-background-${background}`;
   const [workspaceItemMenu, setWorkspaceItemMenu] = useState(false);
+
+  function handleClickDelete() {
+    dispatch(deleteOne(id));
+    dispatch(getByUser());
+  }
+
   return (
     <div className="workspace-item-container">
       <div className={className}>{name[0]}</div>
@@ -25,7 +37,7 @@ function WorkspaceItem({ name, description, background }) {
         <h5>
           {description}
         </h5>
-        <span>
+        <span onClick={handleClickDelete}>
           <i className="fas fa-trash" />
           {' '}
           Удалить
@@ -34,7 +46,7 @@ function WorkspaceItem({ name, description, background }) {
         <span>
           <i className="far fa-folder-open" />
           {' '}
-          Открыть
+          Проекты
         </span>
       </div>
       )}
@@ -46,12 +58,14 @@ WorkspaceItem.propTypes = {
   name: PropTypes.string,
   description: PropTypes.string,
   background: PropTypes.number,
+  id: PropTypes.number,
 };
 
 WorkspaceItem.defaultProps = {
   name: 'Рабочая зона',
   description: 'описание рабочей зоны',
   background: 0,
+  id: undefined,
 };
 
 export default WorkspaceItem;

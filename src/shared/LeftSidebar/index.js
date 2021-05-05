@@ -74,6 +74,7 @@ function LeftSidebar({ home, projects, templates }) {
               name={workspace.name}
               description={workspace.description}
               background={workspace.background}
+              id={workspace.id}
             />
           ))
         }

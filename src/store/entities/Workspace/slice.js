@@ -8,6 +8,12 @@ const workspaceSlice = createSlice({
     message: '',
   },
   reducers: {
+    workspaceDeletingStart: (state) => {
+      state.loading = true;
+    },
+    workspaceDeletingSuccess: (state) => {
+      state.loading = false;
+    },
     workspaceGettingStart: (state) => {
       state.loading = true;
     },
@@ -27,6 +33,7 @@ const workspaceSlice = createSlice({
 });
 
 export const {
+  workspaceDeletingStart, workspaceDeletingSuccess,
   workspaceGettingStart, workspaceGettingSuccess,
   workspaceCreatingStart, workspaceCreatingSuccess,
 } = workspaceSlice.actions;
