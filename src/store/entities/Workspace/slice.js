@@ -18,7 +18,6 @@ const workspaceSlice = createSlice({
       state.loading = true;
     },
     workspaceGettingSuccess: (state, action) => {
-      console.log('action ', action);
       state.loading = false;
       state.workspaces = action.payload;
     },

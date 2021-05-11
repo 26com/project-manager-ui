@@ -9,33 +9,36 @@ import { getByUser, createNew } from '../../store/entities/Workspace/thunk';
 import './style.css';
 
 function LeftSidebar({ home, projects, templates }) {
-  console.log('render');
   const [workspaceForm, setWorkspaceForm] = useState(false);
   const { workspaces } = useSelector((state) => state.workspace);
   const dispatch = useDispatch();
 
-  const handelWorkspaceClick = () => {
-    setWorkspaceForm(true);
-  };
-  const handelClikOutside = (e) => {
+  const handelClikOutsideWorkspace = (e) => {
+    const workspaceCreateElem = document.querySelector('.workspace-create-button');
     const workspaceShowElem = document.querySelector('.left-sidebar-workspace-button');
     const workspaceFormElem = document.querySelector('.workspace-form-container');
-    if (e.composedPath().includes(workspaceFormElem)) {
-      return;
-    }
     if (e.composedPath().includes(workspaceShowElem)) {
       return;
     }
+    if (e.composedPath().includes(workspaceCreateElem)) {
+      setWorkspaceForm(false);
+      document.removeEventListener('click', handelClikOutsideWorkspace);
+      return;
+    }
+    if (e.composedPath().includes(workspaceFormElem)) {
+      return;
+    }
     setWorkspaceForm(false);
+    document.removeEventListener('click', handelClikOutsideWorkspace);
+  };
+
+  const handelWorkspaceClick = () => {
+    document.addEventListener('click', handelClikOutsideWorkspace);
+    setWorkspaceForm(true);
   };
 
   useEffect(() => {
     dispatch(getByUser());
-    console.log('useEffect ', workspaces);
-    document.addEventListener('click', handelClikOutside);
-    return () => {
-      document.removeEventListener('click', handelClikOutside);
-    };
   }, []);
 
   return (

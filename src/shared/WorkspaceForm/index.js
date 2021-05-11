@@ -38,7 +38,7 @@ function WorkspaceForm() {
 
   return (
     <div className="workspace-form-container">
-      <form className="workspace-form">
+      <div className="workspace-form">
         <h4>
           Добавить рабочую зону
         </h4>
@@ -69,12 +69,13 @@ function WorkspaceForm() {
           }
         </div>
         <button
+          className="workspace-create-button"
           onClick={handleClick}
           disabled={!workspaceName}
         >
           Создать
         </button>
-      </form>
+      </div>
       <div className="workspace-form-right-zone" />
     </div>
   );

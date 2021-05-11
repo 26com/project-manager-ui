@@ -8,8 +8,8 @@ import store from './store';
 import Login from './routes/Login';
 import Register from './routes/Register';
 import Home from './routes/Home';
-import Projects from './routes/Projects';
-import './style.css';
+import WorkspaceProjects from './routes/WorkspaceProjects';
+import UserProjects from './routes/UserProjects';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -18,7 +18,8 @@ ReactDOM.render(
         <Route path="/auth/login"><Login /></Route>
         <Route path="/auth/register/:token"><Register /></Route>
         <Route path="/auth/register"><Register /></Route>
-        <Route path="/user/projects"><Projects /></Route>
+        <Route path="/user/projects/:workspaceId"><WorkspaceProjects /></Route>
+        <Route path="/user/projects"><UserProjects /></Route>
         <Route path="/"><Home /></Route>
       </Switch>
     </Router>

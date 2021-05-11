@@ -1,0 +1,21 @@
+.projects-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.projects-main-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1%;
+}
+.projects-content {
+  width: 30%;
+}
+.projects-content img {
+  width: 100%;
+}
+.projects-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

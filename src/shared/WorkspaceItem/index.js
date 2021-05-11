@@ -15,11 +15,11 @@ function WorkspaceItem({
 }) {
   const dispatch = useDispatch();
   const className = `workspace-item-lable workspace-background-${background}`;
+  const link = `/user/projects/${id}`;
   const [workspaceItemMenu, setWorkspaceItemMenu] = useState(false);
 
   function handleClickDelete() {
     dispatch(deleteOne(id));
-    dispatch(getByUser());
   }
 
   return (
@@ -33,22 +33,27 @@ function WorkspaceItem({
       {workspaceItemMenu && (<i className="fas fa-caret-up menu-button" onClick={() => setWorkspaceItemMenu(false)} />)}
       {workspaceItemMenu
       && (
-      <div className="workspace-item-menu">
-        <h5>
-          {description}
-        </h5>
-        <span onClick={handleClickDelete}>
-          <i className="fas fa-trash" />
-          {' '}
-          Удалить
-        </span>
-        {' '}
-        <span>
-          <i className="far fa-folder-open" />
-          {' '}
-          Проекты
-        </span>
-      </div>
+      <ul className="workspace-item-menu">
+        <li>
+          <span>
+            {description}
+          </span>
+        </li>
+        <li>
+          <span onClick={handleClickDelete}>
+            <i className="fas fa-trash" />
+            {' '}
+            Удалить
+          </span>
+        </li>
+        <li>
+          <a href={link}>
+            <i className="far fa-folder-open" />
+            {' '}
+            Проекты
+          </a>
+        </li>
+      </ul>
       )}
     </div>
   );

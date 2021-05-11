@@ -34,10 +34,11 @@
 .project-background-5 {
   background: linear-gradient(to top left, #e6b8b0, #c0dbff);
 }
-.workspace-form-container {
+.project-form-container {
   width: 25%;
   border-radius: 10px;
-  background-color: #fff;
+  background-color: rgba(0, 0, 0, 0.63);
+  color: white;
   position: absolute;
   margin-top: -50px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
@@ -46,16 +47,19 @@
   justify-content: center;
   align-items: stretch;
 }
-.workspace-form-item {
+.project-form-item {
   padding: 15px;
   border-radius: 10px;
 }
-.workspace-form-input {
+.project-form-input {
   border: none;
+  background: none;
+  outline: none;
   border-bottom: 1px solid black;
   margin-bottom: 10px;
+  color: white;
 }
-.workspace-form {
+.project-form {
   width: 65%;
   display: flex;
   flex-direction: column;
@@ -63,13 +67,16 @@
   padding: 15px;
   border-radius: 10px;
 }
-.workspace-form input,
-.workspace-form textarea {
+.project-form input,
+.project-form textarea {
   border: none;
+  background: none;
+  outline: none;
   border-bottom: 1px solid black;
   margin-bottom: 10px;
+  color: white;
 }
-.workspace-form button {
+.project-form button {
   height: 36px;
   width: 120px;
   margin-top: 20px;
@@ -77,18 +84,18 @@
   box-shadow: 0 0.1em 3px rgba(122, 122, 122, 0.5);
   background-color: white;
 }
-.workspace-background-search {
+.project-background-search {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  min-height: 120px;
+  min-height: 160px;
 }
-.workspace-background-search .active {
+.project-background-search .active {
   opacity: 1;
   width: 45px;
   height: 45px;
 }
-.workspace-background-search div {
+.project-background-search div {
   margin: 5px;
   width: 40px;
   height: 40px;
@@ -96,15 +103,8 @@
   opacity: 0.4;
   transition: all 0.3s;
 }
-.workspace-form-right-zone {
+.project-form-right-zone {
   width: 35%;
-  background-image: url("https://habrastorage.org/getpro/habr/post_images/31f/530/c52/31f530c52968de40774a6cb19feeca43.png");
-  background-size: cover;
   padding: 15px;
   border-radius: 10px;
-}
-.workspace-form-right-zone i {
-  position: absolute;
-  right: 5px;
-  top: 5px;
 }

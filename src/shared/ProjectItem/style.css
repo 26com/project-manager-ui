@@ -17,20 +17,29 @@
   background: linear-gradient(to top left, #e6b8b0, #c0dbff);
 }
 .project-background-0 {
-  background: linear-gradient(to top, white, #9c9999);
+  background: linear-gradient(to top, #070606, #9c9999);
 }
 .project-background-1 {
-  background: linear-gradient(45deg, #EECFBA, #C5DDE8);
+  background: linear-gradient(45deg, #ec7e35, #50b6e6);
 }
 .project-background-2 {
-  background: linear-gradient(to right, #F6EFD2, #CEAD78);
+  background: linear-gradient(to right, #ecca41, #201f1d);
 }
 .project-background-3 {
-  background: linear-gradient(to top left, powderblue, pink);
+  background: linear-gradient(to top left, #56d8e9, #f5072f);
 }
 .project-background-4 {
-  background: linear-gradient(45deg, #deeeba, #e6e8c5);
+  background: linear-gradient(45deg, #baec46, #5e5f4f);
 }
 .project-background-5 {
-  background: linear-gradient(to top left, #e6b8b0, #c0dbff);
+  background: linear-gradient(to top left, #e96048, #5a96e6);
+}
+.project-item {
+  width: 100px;
+  height: 60px;
+  margin: 10px 10px 0 0;
+  padding: 15px;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
 }
